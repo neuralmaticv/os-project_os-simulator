@@ -1,0 +1,14 @@
+.text-area {
+    -fx-background-color: #282a36;
+    -fx-border-color: #50fa7b;
+    -fx-text-fill: white;
+}
+.text-area .content {
+    -fx-background-color: #282a36;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+.text-area:focused .content {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}

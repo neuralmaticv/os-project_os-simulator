@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #282a36;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.college.os_project.view.Controller">
+   <children>
+      <TextArea fx:id="textArea" styleClass="text-area" focusTraversable="false" layoutX="25.0" layoutY="14.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="14.0" />
+         </font></TextArea>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="606.0" prefHeight="80.0" prefWidth="1100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="181.0" text="osproject@ubuntu:~$" textFill="#50fa7b">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textInputField" focusTraversable="false" prefHeight="40.0" prefWidth="985.0" style="-fx-control-inner-background: #282a36; -fx-border-color: #50fa7b;">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
