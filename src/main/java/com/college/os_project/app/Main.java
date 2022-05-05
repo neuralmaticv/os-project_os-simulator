@@ -7,7 +7,7 @@ public class Main {
         View guiView = new GUIView();
         View cmdView = new ConsoleView();
 
-        Simulator osSimulator = new Simulator(guiView);
+        Simulator osSimulator = new Simulator(cmdView);
         osSimulator.run();
     }
 }
