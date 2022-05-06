@@ -20,13 +20,13 @@
 Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-project_os-simulator/blob/main/documentation/project_specification_sr.pdf).
 
 #### Osnovni elementi:
-- [ ] Procedura za podizanje operativnog sistema - booting
-- [ ] Realizacija raspoređivača procesa - realizovati algoritam najvećeg prioriteta
+- [x] Procedura za podizanje operativnog sistema - booting
+- [x] Realizacija raspoređivača procesa - realizovati algoritam najvećeg prioriteta
 - [ ] Realizacija tehnika upravljanja memorijom - dinamičko particionisanje sa odabirom najbolje odgovarajuće memorijske particije
 - [ ] Realizacija fajl sistema - drvoliko 
 - [ ] Realizacija interakcije sa ulazno/izlaznim uređajima (ulaz je tastatura i izlaz je monitor). **[Opcioni dio]**
 - [ ] Realizovati kreiranje, čitanje i brisanje datoteka - indeksirana alokacija memorije
-- [ ] Osmisliti komande operativnog sistema koje treba da sadrže najosnovnije stvari koje će omogućiti pokretanje većeg broja procesa. Osnovne komande su:
+- [x] Osmisliti komande operativnog sistema koje treba da sadrže najosnovnije stvari koje će omogućiti pokretanje većeg broja procesa. Osnovne komande su:
   1. Komanda za listanje datoteka i poddirektorijuma u aktuelnom direktorijumu
   2. Komanda za promjenu aktuelnog direktorijuma
   3. Komanda za kreiranje, brisanje i preimenovanje direktorijuma
