@@ -3,6 +3,7 @@ package com.college.os_project.view;
 import com.college.os_project.model.Bootloader;
 import com.college.os_project.model.Commands;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
@@ -34,11 +35,15 @@ public class ConsoleView implements View {
         sb.append("-------------------------------------------------------------------\n\n");
 
         System.out.println(sb);
-        login();
+        try {
+            login();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    private void login() {
+    private void login() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("[?] username: ");
         String username = scanner.next();

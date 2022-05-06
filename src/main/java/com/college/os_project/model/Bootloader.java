@@ -1,9 +1,10 @@
 package com.college.os_project.model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class Bootloader {
     public static boolean boot() {
@@ -24,16 +25,15 @@ public class Bootloader {
         System.out.println(sb);
     }
 
-    public static boolean login(String username, String password) {
-        List<String> credentials = null;
+    public static boolean login(String username, String password) throws IOException {
+        String fileName = "user_credentials.txt";
+        ClassLoader classLoader = Bootloader.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(streamReader);
 
-        try {
-            credentials = Files.readAllLines(Path.of("/home/vladimir/GoogleDrive/Courses/03Third_semester/projects/os-project/src/main/java/com/college/os_project/model/user_credentials.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (String record : credentials) {
+        String record;
+        while ((record = reader.readLine()) != null) {
             String[] userCredentials = record.split(" ");
 
             if (userCredentials[0].equals(username) && userCredentials[1].equals(password)) {
@@ -43,6 +43,6 @@ public class Bootloader {
             }
         }
 
-        return true;
+        return false;
     }
 }
