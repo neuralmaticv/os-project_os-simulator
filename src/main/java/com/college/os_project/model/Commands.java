@@ -5,7 +5,7 @@ import com.college.os_project.model.kernel.Process;
 public class Commands {
     public static void checkCommand(String input) {
         String[] inputArr = input.split(" ");
-        
+
         if (inputArr.length == 1) {
             switch (inputArr[0]) {
                 case "ls":
@@ -44,7 +44,7 @@ public class Commands {
                     removeDir(inputArr[1]);
                     break;
                 case "run":
-                    runProcess(inputArr[1]);
+                    runProcess(Integer.valueOf(inputArr[1]));
                     break;
                 case "stop":
                     stopProcess(Integer.valueOf(inputArr[1]));
@@ -79,20 +79,45 @@ public class Commands {
         // TODO:
     }
 
-    private static void runProcess(String arg) {
-        // TODO:
+    private static void runProcess(Integer PID) {
+        Process p = Process.getProcess(PID);
+
+        if (p != null) {
+            p.runProcess();
+        } else {
+            System.out.printf("Process with PID = %d does not exist.\n", PID);
+        }
     }
 
-    private static void stopProcess(Integer pid) {
-        // TOODO:
+    private static void stopProcess(Integer PID) {
+        Process p = Process.getProcess(PID);
+
+        if (p != null) {
+            p.terminateProcess();
+        } else {
+            System.out.printf("Process with PID = %d does not exist.\n", PID);
+        }
     }
 
-    private static void blockProcess(Integer pid) {
-        // TODO:
+    private static void blockProcess(Integer PID) {
+        Process p = Process.getProcess(PID);
+
+        if (p != null) {
+            p.blockProcess();
+        } else {
+            System.out.printf("Process with PID = %d does not exist.\n", PID);
+        }
     }
 
-    private static void unblockProcess(Integer pid) {
-        // TODO:
+    private static void unblockProcess(Integer PID) {
+        Process p = Process.getProcess(PID);
+
+        if (p != null) {
+            p.unblockProcess();
+        } else {
+            System.out.printf("Process with PID = %d does not exist.\n", PID);
+        }
+
     }
 
     private static void runAllProcesses() {
@@ -114,6 +139,7 @@ public class Commands {
     }
 
     private static void exit() {
+        stopProcess(0);
         System.out.println("Bye!");
         System.exit(1);
     }
@@ -124,11 +150,12 @@ public class Commands {
         System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "run <program name> <output file>", "[NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "rap", "Run all processes. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "stop <process id>", "[NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "block <process id>", "[NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "unblock <process id>", "[NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "ps", "List all processes.  [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "run <<process id>", "Run process with specific PID.");
+        System.out.printf("%-40s %s\n", "stop <process id>", "Stop process with specific PID.");
+        System.out.printf("%-40s %s\n", "block <process id>", "Block process with specific PID.");
+        System.out.printf("%-40s %s\n", "unblock <process id>", "Unblock process with specific PID.");
+        System.out.printf("%-40s %s\n", "rap", "Run all processes.");
+        System.out.printf("%-40s %s\n", "ps", "List all processes.");
         System.out.printf("%-40s %s\n", "mem", "Show memory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "clear", "Clear the terminal. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "exit", "Terminate simulator.");

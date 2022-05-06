@@ -1,5 +1,8 @@
 package com.college.os_project.model;
 
+import com.college.os_project.model.kernel.Process;
+import com.college.os_project.model.kernel.ProcessState;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +12,15 @@ import java.nio.charset.StandardCharsets;
 public class Bootloader {
     public static boolean boot() {
         try {
+            // init - systemd system and service manager
+            Process systemd = new Process("systemd", -20, ProcessState.RUNNING, 0);
+
             displayInfo();
             Thread.sleep(500);
+            Process.loadProcesses();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -38,8 +47,6 @@ public class Bootloader {
 
             if (userCredentials[0].equals(username) && userCredentials[1].equals(password)) {
                 return true;
-            } else {
-                return false;
             }
         }
 
