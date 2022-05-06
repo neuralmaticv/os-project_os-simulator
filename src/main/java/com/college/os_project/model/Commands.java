@@ -1,5 +1,7 @@
 package com.college.os_project.model;
 
+import com.college.os_project.model.kernel.Process;
+
 public class Commands {
     public static void checkCommand(String input) {
         String[] inputArr = input.split(" ");
@@ -28,7 +30,7 @@ public class Commands {
                     help();
                     break;
                 default:
-                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.\n");
+                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.");
             }
         } else if (inputArr.length == 2) {
             switch (inputArr[0]) {
@@ -54,10 +56,10 @@ public class Commands {
                     unblockProcess(Integer.valueOf(inputArr[1]));
                     break;
                 default:
-                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.\n");
+                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.");
             }
         } else {
-            System.out.println("Command '" + input + "' not found, type 'help' to list available commands.\n");
+            System.out.println("Command '" + input + "' not found, type 'help' to list available commands.");
         }
     }
 
@@ -98,7 +100,7 @@ public class Commands {
     }
 
     private static void listAllProcesses() {
-        //Process.showAllProcesses();
+        Process.showAllProcesses();
     }
 
     private static void showMemory() {
@@ -117,19 +119,19 @@ public class Commands {
     }
 
     private static void help() {
-        System.out.printf("%-40s %s", "ls", "List files and directories. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "cd <dir name>", "Change working directory. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "run <program name> <output file>", "[NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "rap", "Run all processes. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "stop <process id>", "[NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "block <process id>", "[NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "unblock <process id>", "[NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "ps", "List all processes.  [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "mem", "Show memory. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "clear", "Clear the terminal. [NOT IMPLEMENTED]\n");
-        System.out.printf("%-40s %s", "exit", "Terminate simulator.\n");
-        System.out.printf("%-40s %s", "help", "List of commands.\n");
+        System.out.printf("%-40s %s\n", "ls", "List files and directories. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "cd <dir name>", "Change working directory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "run <program name> <output file>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "rap", "Run all processes. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "stop <process id>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "block <process id>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "unblock <process id>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "ps", "List all processes.  [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "mem", "Show memory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "clear", "Clear the terminal. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "exit", "Terminate simulator.");
+        System.out.printf("%-40s %s\n", "help", "List of commands.");
     }
 }

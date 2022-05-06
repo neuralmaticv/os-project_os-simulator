@@ -1,6 +1,8 @@
 package com.college.os_project.app;
 
-import com.college.os_project.view.*;
+import com.college.os_project.view.ConsoleView;
+import com.college.os_project.view.GUIView;
+import com.college.os_project.view.View;
 
 public class Main {
     public static void main(String[] args) {
