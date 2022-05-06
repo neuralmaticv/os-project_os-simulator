@@ -13,7 +13,8 @@ public class Bootloader {
     public static boolean boot() {
         try {
             // init - systemd system and service manager
-            Process systemd = new Process("systemd", -20, ProcessState.RUNNING, 0);
+            Process systemd = new Process("systemd", -1, ProcessState.RUNNING, 0, true);
+            systemd.start();
 
             displayInfo();
             Thread.sleep(500);
