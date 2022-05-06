@@ -1,0 +1,6 @@
+root -15 10
+root 1 100
+vladimir -10 250
+vladimir 9 1000
+root 19 50
+vladimir 15 100
