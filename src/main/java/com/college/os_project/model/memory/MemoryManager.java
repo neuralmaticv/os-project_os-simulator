@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class MemoryManager {
     public MemoryManager(int size) {
-        Memory.init(4096);
+        Memory.init(size);
     }
 
     public boolean loadProcess(Process process) {
