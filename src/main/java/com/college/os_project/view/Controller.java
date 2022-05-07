@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -36,10 +38,11 @@ public class Controller implements Initializable {
 
         textArea.setText(sb.toString());
 
-        if (Bootloader.boot()) {
-            textArea.appendText("Successfully booted.\n");
-        } else {
-            textArea.appendText("Boot error occured.");
+        try {
+            Bootloader.boot();
+            System.out.println("Successfully booted.");
+        } catch (IOException e) {
+            System.out.println("Boot error occured.");
             return;
         }
     }

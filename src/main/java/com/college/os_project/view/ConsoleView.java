@@ -5,7 +5,6 @@ import com.college.os_project.model.Commands;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,27 +13,24 @@ import java.util.Scanner;
 public class ConsoleView implements View {
     @Override
     public void drawView() {
-        if (Bootloader.boot()) {
+        String hostname = "UNKNOWN HOST NAME";
+
+        try {
+            Bootloader.boot();
+            hostname = InetAddress.getLocalHost().getHostName();
             System.out.println("Successfully booted.");
-        } else {
+        } catch (IOException e) {
             System.out.println("Boot error occured.");
             return;
-        }
-
-        String hostname = "UNKNOWN HOST NAME";
-        try {
-            hostname = InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         }
 
         StringBuilder sb = new StringBuilder();
         sb.append("Operating System Simulator").append("[Version 0.0.1]").append("\n");
         sb.append("Authors: ").append("Vladimir Mijic").append("\n");
         sb.append("On computer: ").append(hostname).append("\n");
-        sb.append("-------------------------------------------------------------------\n\n");
-
+        sb.append("-------------------------------------------------------------------");
         System.out.println(sb);
+
         try {
             login();
         } catch (IOException e) {
@@ -66,7 +62,6 @@ public class ConsoleView implements View {
             login();
         }
     }
-
 
     private static String getHashValue(String password) {
         StringBuilder sb = new StringBuilder();

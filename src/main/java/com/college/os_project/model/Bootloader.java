@@ -1,7 +1,9 @@
 package com.college.os_project.model;
 
 import com.college.os_project.model.kernel.Process;
+import com.college.os_project.model.kernel.ProcessScheduler;
 import com.college.os_project.model.kernel.ProcessState;
+import com.college.os_project.model.memory.MemoryManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,29 +12,15 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class Bootloader {
-    public static boolean boot() {
-        try {
-            // init - systemd system and service manager
-            Process systemd = new Process("systemd", -1, ProcessState.RUNNING, 0, true);
-            systemd.start();
+    public static MemoryManager memoryManager;
 
-            displayInfo();
-            Thread.sleep(500);
-            Process.loadProcesses();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void boot() throws IOException {
+        memoryManager = new MemoryManager(4096);
+        new ProcessScheduler();
 
-        return true;
-    }
-
-    private static void displayInfo() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("OS simulator: ").append("\n");
-        sb.append("Memory: ").append("\n");
-        System.out.println(sb);
+        // init - systemd system and service manager
+        Process systemd = new Process("systemd", -1, ProcessState.RUNNING, 350, true);
+        systemd.start();
     }
 
     public static boolean login(String username, String password) throws IOException {
