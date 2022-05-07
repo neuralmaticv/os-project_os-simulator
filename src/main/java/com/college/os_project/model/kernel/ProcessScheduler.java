@@ -7,13 +7,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class ProcessScheduler {
     public static ArrayList<Process> allProcesses = new ArrayList<>();
     public static Queue<Process> readyQueue = new LinkedList<>();
+    public static int timeQuantum = 1;
 
     public ProcessScheduler() {
 
@@ -51,7 +51,7 @@ public class ProcessScheduler {
         } else if (process.getProcessState().equals(ProcessState.READY)) {
             Bootloader.memoryManager.loadProcess(process);
             process.setState(ProcessState.RUNNING);
-            process.setStartTime(new Date());
+            process.setStartTime(System.currentTimeMillis());
             process.start();
             System.out.printf("Process with PID = %d is running.\n", PID);
         } else if (process.getProcessState().equals(ProcessState.BLOCKED)) {

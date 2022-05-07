@@ -4,9 +4,9 @@ import com.college.os_project.model.Bootloader;
 import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.memory.MemoryManager;
 import com.college.os_project.model.memory.MemoryPartition;
+
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
 
 public class Process extends Thread {
     private final int PID;
@@ -14,7 +14,7 @@ public class Process extends Thread {
     private ProcessState state;
     private int priority;
     private int size;
-    private Date startTime;
+    private long startTime;
     private int totalTimeMS = 0;
     private int programCounter = -1;
     private MemoryPartition partition = null;
@@ -39,7 +39,7 @@ public class Process extends Thread {
 
         if (isDaemon) {
             this.setDaemon(true);
-            this.startTime = new Date();
+            this.startTime = System.currentTimeMillis();
             Bootloader.memoryManager.loadProcess(this);
         } else {
             this.setDaemon(false);
@@ -50,20 +50,23 @@ public class Process extends Thread {
 
     @Override
     public void run() {
-        while (!this.getProcessState().equals(ProcessState.TERMINATED)) {
-            if (this.getPID() != 0) {
-                ProcessScheduler.getProcess(0).incSize(0);
-            }
-
-            try {
-                if (this.getProcessState().equals(ProcessState.RUNNING)) {
+        if (this.getPID() == 0) {
+            while (this.getProcessState().equals(ProcessState.RUNNING)) {
+                try {
                     this.sleep(10);
                     totalTimeMS += 10;
-                } else {
-                    this.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            }
+        } else {
+            while ((this.getProcessState().equals(ProcessState.RUNNING)) && System.currentTimeMillis() - startTime < ProcessScheduler.timeQuantum) {
+                try {
+                    this.sleep(1000);
+                    totalTimeMS += 1000;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -143,7 +146,7 @@ public class Process extends Thread {
         this.size += size;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
@@ -177,7 +180,7 @@ public class Process extends Thread {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        if (startTime == null) {
+        if (startTime == 0) {
             sb.append(String.format("%-3s\t\t %-18s\t\t %-3s\t\t %-10s\t\t %-10s\t\t %-12s\t\t %-12s\n", this.PID, this.username, this.priority, this.state, this.size, "?", "?"));
         } else {
             Duration duration = Duration.ofMillis(totalTimeMS);
