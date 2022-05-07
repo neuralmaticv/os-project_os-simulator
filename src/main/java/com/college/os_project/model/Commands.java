@@ -1,6 +1,10 @@
 package com.college.os_project.model;
 
 import com.college.os_project.model.kernel.Process;
+import com.college.os_project.model.kernel.ProcessScheduler;
+import com.college.os_project.model.memory.Memory;
+
+import java.io.IOException;
 
 public class Commands {
     public static void checkCommand(String input) {
@@ -44,7 +48,15 @@ public class Commands {
                     removeDir(inputArr[1]);
                     break;
                 case "run":
+                    if (inputArr[1].equals("-a")) {
+                        runAllProcesses();
+                        break;
+                    }
                     runProcess(Integer.valueOf(inputArr[1]));
+                    break;
+                case "load":
+                    if (inputArr[1].equals("-a"))
+                    loadProcesses();
                     break;
                 case "stop":
                     stopProcess(Integer.valueOf(inputArr[1]));
@@ -79,18 +91,26 @@ public class Commands {
         // TODO:
     }
 
+    private static void loadProcesses() {
+        try {
+            ProcessScheduler.loadProcesses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void runProcess(Integer PID) {
-        Process p = Process.getProcess(PID);
+        Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
-            p.runProcess();
+            ProcessScheduler.runProcess(p);
         } else {
             System.out.printf("Process with PID = %d does not exist.\n", PID);
         }
     }
 
     private static void stopProcess(Integer PID) {
-        Process p = Process.getProcess(PID);
+        Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
             p.terminateProcess();
@@ -100,7 +120,7 @@ public class Commands {
     }
 
     private static void blockProcess(Integer PID) {
-        Process p = Process.getProcess(PID);
+        Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
             p.blockProcess();
@@ -110,7 +130,7 @@ public class Commands {
     }
 
     private static void unblockProcess(Integer PID) {
-        Process p = Process.getProcess(PID);
+        Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
             p.unblockProcess();
@@ -121,15 +141,15 @@ public class Commands {
     }
 
     private static void runAllProcesses() {
-        // TODO:
+        ProcessScheduler.runProcesses();
     }
 
     private static void listAllProcesses() {
-        Process.showAllProcesses();
+        ProcessScheduler.showAllProcesses();
     }
 
     private static void showMemory() {
-        // TODO:
+        Memory.info();
     }
 
     private static void clearTerminal() {
@@ -149,8 +169,10 @@ public class Commands {
         System.out.printf("%-40s %s\n", "cd <dir name>", "Change working directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "load -a", "Load all processes.");
+        System.out.printf("%-40s %s\n", "run -a", "Run all processes.");
         System.out.printf("%-40s %s\n", "run <program name> <output file>", "[NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "run <<process id>", "Run process with specific PID.");
+        System.out.printf("%-40s %s\n", "run <process id>", "Run process with specific PID.");
         System.out.printf("%-40s %s\n", "stop <process id>", "Stop process with specific PID.");
         System.out.printf("%-40s %s\n", "block <process id>", "Block process with specific PID.");
         System.out.printf("%-40s %s\n", "unblock <process id>", "Unblock process with specific PID.");
