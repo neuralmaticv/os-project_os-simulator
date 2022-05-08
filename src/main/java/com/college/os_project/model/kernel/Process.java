@@ -1,6 +1,7 @@
 package com.college.os_project.model.kernel;
 
 import com.college.os_project.model.Bootloader;
+import com.college.os_project.model.Commands;
 import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.memory.MemoryManager;
 import com.college.os_project.model.memory.MemoryPartition;
@@ -60,10 +61,13 @@ public class Process extends Thread {
                 }
             }
         } else {
-            while ((this.getProcessState().equals(ProcessState.RUNNING)) && System.currentTimeMillis() - startTime < ProcessScheduler.timeQuantum) {
+            while ((this.getProcessState().equals(ProcessState.RUNNING))) {
                 try {
-                    this.sleep(1000);
-                    totalTimeMS += 1000;
+                    int burstTime = this.size * 2;
+                    this.sleep(burstTime);
+                    totalTimeMS += burstTime;
+
+                    this.terminateProcess();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +102,7 @@ public class Process extends Thread {
 
     public void terminateProcess() {
         if (PID == 0) {
-            System.out.println("You are not allowed to terminate this process.");
+            System.out.println("Process systemd is terminated...");
         } else if (this.state.equals(ProcessState.READY) || this.state.equals(ProcessState.RUNNING)) {
             this.state = ProcessState.TERMINATED;
             MemoryManager.removeProcess(this);
