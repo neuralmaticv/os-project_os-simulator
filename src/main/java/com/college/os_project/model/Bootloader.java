@@ -1,9 +1,8 @@
 package com.college.os_project.model;
 
-import com.college.os_project.model.kernel.Process;
-import com.college.os_project.model.kernel.ProcessScheduler;
-import com.college.os_project.model.kernel.ProcessState;
+import com.college.os_project.model.assembler.Assembler;
 import com.college.os_project.model.memory.MemoryManager;
+import com.college.os_project.model.processor.CPU;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,15 +11,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 public class Bootloader {
-    public static MemoryManager memoryManager;
+    private static CPU cpu;
+    private static MemoryManager memoryManager;
+    private static Assembler assembler;
 
     public static void boot() throws IOException {
-        memoryManager = new MemoryManager(4096);
-        new ProcessScheduler();
-
-        // init - systemd system and service manager
-        Process systemd = new Process("systemd", -1, ProcessState.RUNNING, 350, true);
-        systemd.start();
+        memoryManager = new MemoryManager(2048);
+        assembler = new Assembler();
+        cpu = new CPU(assembler);
     }
 
     public static boolean login(String username, String password) throws IOException {
@@ -40,5 +38,17 @@ public class Bootloader {
         }
 
         return false;
+    }
+
+    public static CPU getCpu() {
+        return cpu;
+    }
+
+    public static MemoryManager getMemoryManager() {
+        return memoryManager;
+    }
+
+    public static Assembler getAssembler() {
+        return assembler;
     }
 }
