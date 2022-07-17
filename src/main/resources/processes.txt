@@ -1,6 +1,0 @@
-root -1 10
-root 0 100
-vladimir 1 250
-vladimir -1 1000
-root 1 50
-vladimir 0 100
