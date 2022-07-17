@@ -22,7 +22,7 @@ Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-
 #### Osnovni elementi:
 - [x] Procedura za podizanje operativnog sistema - booting
 - [x] Realizacija raspoređivača procesa - realizovati algoritam najvećeg prioriteta
-- [ ] Realizacija tehnika upravljanja memorijom - dinamičko particionisanje sa odabirom najbolje odgovarajuće memorijske particije
+- [x] Realizacija tehnika upravljanja memorijom - dinamičko particionisanje sa odabirom najbolje odgovarajuće memorijske particije
 - [ ] Realizacija fajl sistema - drvoliko 
 - [ ] Realizacija interakcije sa ulazno/izlaznim uređajima (ulaz je tastatura i izlaz je monitor). **[Opcioni dio]**
 - [ ] Realizovati kreiranje, čitanje i brisanje datoteka - indeksirana alokacija memorije
@@ -38,7 +38,7 @@ Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-
   6. Prekid nekog procesa
   7. Blokiranje i odblokiranje nekog procesa
   8. Gašenje simulatora
-- [ ] Kreirati jednostavan asembler. Ovom prilikom je potrebno kreirati najviše desetak osnovniih naredbi asemblera (prebacivanje iz i u memoriju sa registra, sabiranje, oduzimanje, množenje, dijeljenje, naredba skoka i slično). Ovom prilikom je potrebno napraviti simulaciju registara. Prilikom učitavanja asemblerskog koda (tekstualne datoteke sa ekstenzijom `.asm`), potrebno je generisati mašinski kod, te ga potom izvršiti. Omogućiti prikaz memorije i registara.
+- [x] Kreirati jednostavan asembler. Ovom prilikom je potrebno kreirati najviše desetak osnovniih naredbi asemblera (prebacivanje iz i u memoriju sa registra, sabiranje, oduzimanje, množenje, dijeljenje, naredba skoka i slično). Ovom prilikom je potrebno napraviti simulaciju registara. Prilikom učitavanja asemblerskog koda (tekstualne datoteke sa ekstenzijom `.asm`), potrebno je generisati mašinski kod, te ga potom izvršiti. Omogućiti prikaz memorije i registara.
 
 ### Korištene tehnologije i alati
 <p>
