@@ -1,0 +1,7 @@
+ADD A,5
+ADD B,A
+CMP B,1
+DEC B
+MUL A,B
+JNZ 1
+HLT
