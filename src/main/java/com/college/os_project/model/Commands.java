@@ -1,10 +1,14 @@
 package com.college.os_project.model;
 
-import com.college.os_project.model.kernel.Process;
-import com.college.os_project.model.kernel.ProcessScheduler;
+import com.college.os_project.model.processor.Process;
+import com.college.os_project.model.processor.ProcessScheduler;
 import com.college.os_project.model.memory.Memory;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Random;
 
 public class Commands {
     public static void checkCommand(String input) {
@@ -17,9 +21,6 @@ public class Commands {
                     break;
                 case "ps":
                     listAllProcesses();
-                    break;
-                case "rap":
-                    runAllProcesses();
                     break;
                 case "mem":
                     showMemory();
@@ -47,17 +48,19 @@ public class Commands {
                 case "rm":
                     removeDir(inputArr[1]);
                     break;
+                case "rename":
+                    renameDir(inputArr[1], inputArr[2]);
+                    break;
                 case "run":
-                    if (inputArr[1].equals("-a")) {
-                        runAllProcesses();
-                        break;
-                    }
                     runProcess(Integer.valueOf(inputArr[1]));
                     break;
                 case "load":
-                    if (inputArr[1].equals("-a"))
-                    loadProcesses();
-                    break;
+                    if (inputArr[1].endsWith(".asm")) {
+                        File f = new File("src/main/resources/programs/" + inputArr[1]);
+                        String absolute = f.getAbsolutePath();
+                        loadProcess(absolute, inputArr[1].split(".asm")[0]);
+                        break;
+                    }
                 case "stop":
                     stopProcess(Integer.valueOf(inputArr[1]));
                     break;
@@ -68,7 +71,7 @@ public class Commands {
                     unblockProcess(Integer.valueOf(inputArr[1]));
                     break;
                 default:
-                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.");
+                    System.out.println("Command '" + inputArr[0] + " " + inputArr[1] + "' not found, type 'help' to list available commands.");
             }
         } else {
             System.out.println("Command '" + input + "' not found, type 'help' to list available commands.");
@@ -91,11 +94,16 @@ public class Commands {
         // TODO:
     }
 
-    private static void loadProcesses() {
+    private static void renameDir(String newName, String oldName) {
+        // TODO:
+    }
+
+    private static void loadProcess(String filePath, String processName) {
         try {
-            ProcessScheduler.loadProcesses();
+            Random random = new Random();
+            new Process(filePath, processName, random.nextInt(6) + 1);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -103,45 +111,22 @@ public class Commands {
         Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
-            ProcessScheduler.runProcess(p);
+            new ProcessScheduler().start();
         } else {
             System.out.printf("Process with PID = %d does not exist.\n", PID);
         }
     }
 
     private static void stopProcess(Integer PID) {
-        Process p = ProcessScheduler.getProcess(PID);
-
-        if (p != null) {
-            p.terminateProcess();
-        } else {
-            System.out.printf("Process with PID = %d does not exist.\n", PID);
-        }
+        ProcessScheduler.stopProcess(PID);
     }
 
     private static void blockProcess(Integer PID) {
-        Process p = ProcessScheduler.getProcess(PID);
-
-        if (p != null) {
-            p.blockProcess();
-        } else {
-            System.out.printf("Process with PID = %d does not exist.\n", PID);
-        }
+        ProcessScheduler.blockProcess(PID);
     }
 
     private static void unblockProcess(Integer PID) {
-        Process p = ProcessScheduler.getProcess(PID);
-
-        if (p != null) {
-            p.unblockProcess();
-        } else {
-            System.out.printf("Process with PID = %d does not exist.\n", PID);
-        }
-
-    }
-
-    private static void runAllProcesses() {
-        ProcessScheduler.runProcesses();
+        ProcessScheduler.unblockProcess(PID);
     }
 
     private static void listAllProcesses() {
@@ -153,13 +138,11 @@ public class Commands {
     }
 
     private static void clearTerminal() {
-        // TODO:
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
     private static void exit() {
-        stopProcess(0);
         System.out.println("Bye!");
         System.exit(1);
     }
@@ -169,18 +152,20 @@ public class Commands {
         System.out.printf("%-40s %s\n", "cd <dir name>", "Change working directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "load -a", "Load all processes.");
-        System.out.printf("%-40s %s\n", "run -a", "Run all processes.");
-        System.out.printf("%-40s %s\n", "run <program name> <output file>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "rename <new name> <dir name>", "Rename a directory. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "run <program name> -o <output file>", "[NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "run <process id>", "Run process with specific PID.");
         System.out.printf("%-40s %s\n", "stop <process id>", "Stop process with specific PID.");
         System.out.printf("%-40s %s\n", "block <process id>", "Block process with specific PID.");
         System.out.printf("%-40s %s\n", "unblock <process id>", "Unblock process with specific PID.");
-        System.out.printf("%-40s %s\n", "rap", "Run all processes.");
         System.out.printf("%-40s %s\n", "ps", "List all processes.");
-        System.out.printf("%-40s %s\n", "mem", "Show memory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "clear", "Clear the terminal. [NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "mem", "Show memory.");
+        System.out.printf("%-40s %s\n", "clear", "Clear the terminal.");
         System.out.printf("%-40s %s\n", "exit", "Terminate simulator.");
         System.out.printf("%-40s %s\n", "help", "List of commands.");
+    }
+
+    public static void setOutput(OutputStream output) {
+        System.setOut(new PrintStream(output, true));
     }
 }

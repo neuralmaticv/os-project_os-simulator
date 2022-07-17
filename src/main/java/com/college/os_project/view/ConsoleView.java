@@ -8,7 +8,8 @@ import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Scanner;
+
+import static com.college.os_project.app.Main.scanner;
 
 public class ConsoleView implements View {
     @Override
@@ -38,9 +39,7 @@ public class ConsoleView implements View {
         }
     }
 
-
     private void login() throws IOException {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("[?] username: ");
         String username = scanner.next();
 

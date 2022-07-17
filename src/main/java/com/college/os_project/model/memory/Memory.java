@@ -1,6 +1,6 @@
 package com.college.os_project.model.memory;
 
-import com.college.os_project.model.kernel.Process;
+import com.college.os_project.model.processor.Process;
 
 import java.util.ArrayList;
 
