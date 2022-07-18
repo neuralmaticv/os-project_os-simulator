@@ -100,7 +100,7 @@ public class ProcessScheduler extends Thread {
     }
 
     public static void showAllProcesses() {
-        System.out.printf("%-3s\t\t %-18s\t\t %-3s\t\t %-10s\t\t %-10s\t\t %-12s\t\t %-12s\n", "PID", "USER", "PR", "STATE", "MEM", "START", "TIME+");
+        System.out.printf("%-3s\t\t %-18s\t\t %-3s\t\t %-10s\t\t %-10s\t\t %-12s\t\t %-12s\n", "PID", "NAME", "PR", "STATE", "MEM", "START", "TIME+");
         for (Process p : allProcesses) {
             System.out.print(p);
         }
