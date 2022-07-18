@@ -64,6 +64,7 @@ public class CPU  {
     }
 
     public void executeMachineCode() {
+        boolean programCounterChanged = false;
         String instruction = IR.getStrValue().substring(0, 4);
         printRegisters();
 
@@ -124,12 +125,15 @@ public class CPU  {
             assembler.jmp(r1);
         } else if (instruction.equals(assembler.getInstructionCode("JZ"))) {
             String r1 = IR.getStrValue().substring(4, 12);
-            assembler.jz(r1);
+            programCounterChanged = assembler.jz(r1);
         } else if (instruction.equals(assembler.getInstructionCode("JNZ"))) {
             String r1 = IR.getStrValue().substring(4, 12);
-            assembler.jnz(r1);
+            programCounterChanged = assembler.jnz(r1);
         }
-        PC.incValue(1);
+
+        if (!programCounterChanged) {
+            PC.incValue(1);
+        }
     }
 
     public static Register getRegister(String addresss) {

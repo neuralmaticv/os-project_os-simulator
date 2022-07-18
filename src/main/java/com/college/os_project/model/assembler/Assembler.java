@@ -118,8 +118,6 @@ public class Assembler {
 
         if (r1 != null) {
             if (input.length() == 8) {
-                System.out.println(r1.getValue());
-                System.out.println(input);
                 int condition = r1.getValue() == convertFromBinary(input) ? 1 : 0;
                 CPU.setZFvalue(condition);
             } else if (input.length() == 4) {
@@ -145,32 +143,38 @@ public class Assembler {
         CPU.setPCvalue(temp);
     }
 
-    public void jz(String addr) {
+    public boolean jz(String addr) {
         int temp = convertFromBinary(addr);
 
         if (temp >= CPU.getActiveProcess().getInstructionsSize()) {
             CPU.getActiveProcess().setState(ProcessState.TERMINATED);
             System.out.println("Illegal address error occurred during execution of the process with PID" + CPU.getActiveProcess().getPID());
-            return;
+            return false;
         }
 
         if (CPU.getZFValue() == 1) {
             CPU.setPCvalue(temp);
+            return true;
         }
+
+        return false;
     }
 
-    public void jnz(String addr) {
+    public boolean jnz(String addr) {
         int temp = convertFromBinary(addr);
 
         if (temp >= CPU.getActiveProcess().getInstructionsSize()) {
             CPU.getActiveProcess().setState(ProcessState.TERMINATED);
             System.out.println("Illegal address error occurred during execution of the process with PID" + CPU.getActiveProcess().getPID());
-            return;
+            return false;
         }
 
         if (CPU.getZFValue() == 0) {
             CPU.setPCvalue(temp);
+            return true;
         }
+
+        return false;
     }
 
     private int convertFromBinary(String value) {

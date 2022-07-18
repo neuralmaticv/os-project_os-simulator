@@ -44,7 +44,6 @@ public class Process {
                 this.size += instructions.get(i).length();
             }
             this.size = Math.round(this.size / 8) + 16;
-            System.out.println(instructions);
             ProcessScheduler.allProcesses.add(this);
             ProcessScheduler.readyQueue.add(this);
         } else {
@@ -77,7 +76,6 @@ public class Process {
         List<String> content = Files.readAllLines(filePath);
 
         for (String instruction : content) {
-            System.out.println(instruction);
             String machineCode = Bootloader.getAssembler().transformToMachineCode(instruction);
             this.instructions.add(machineCode);
         }
@@ -90,7 +88,6 @@ public class Process {
 
             if (ProcessScheduler.readyQueue.contains(this)) {
                 ProcessScheduler.readyQueue.remove(this);
-//                ProcessScheduler.blockedQueue.add(this);
             }
         } else {
             System.out.printf("Process with PID = %d is not in running state.\n", PID);
@@ -108,9 +105,7 @@ public class Process {
     }
 
     public void terminateProcess() {
-        if (PID == 0) {
-            System.out.println("Process systemd is terminated...");
-        } else if (this.isReady() || this.isRunning()) {
+        if (this.isReady() || this.isRunning()) {
             this.state = ProcessState.TERMINATED;
             MemoryManager.removeProcess(this);
             System.out.printf("Process with PID = %d is terminated.\n", this.getPID());
