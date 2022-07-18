@@ -1,4 +1,4 @@
-ADD A,5
+ADD A,3
 ADD B,A
 CMP B,1
 JZ 7
