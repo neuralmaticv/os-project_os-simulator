@@ -14,7 +14,7 @@
 ## Opis projekta
 **Tema projekta:** Simulator operativnog sistema
 
-**Projekat radili:** Vladimir Mijić i Sergej Krupljanin
+**Projekat radili:** [Vladimir Mijić](https://github.com/vladocodes) i [Sergej Krupljanin](https://github.com/sergejsergej)
 
 ### Zadatak
 Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-project_os-simulator/blob/main/documentation/project_specification_sr.pdf).
