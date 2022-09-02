@@ -1,10 +1,9 @@
 package com.college.os_project.model.assembler;
 
-import com.college.os_project.model.processor.ProcessState;
 import com.college.os_project.model.processor.CPU;
+import com.college.os_project.model.processor.ProcessState;
 import com.college.os_project.model.processor.Register;
 
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 
 public class Assembler {

@@ -1,24 +1,28 @@
 package com.college.os_project.model;
 
 import com.college.os_project.model.assembler.Assembler;
+import com.college.os_project.model.filesystem.FileSystem;
 import com.college.os_project.model.memory.MemoryManager;
+import com.college.os_project.model.memory.SecondaryMemory;
 import com.college.os_project.model.processor.CPU;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class Bootloader {
     private static CPU cpu;
     private static MemoryManager memoryManager;
     private static Assembler assembler;
+    private static FileSystem tree;
+    private static SecondaryMemory memory;
 
     public static void boot() throws IOException {
         memoryManager = new MemoryManager(2048);
         assembler = new Assembler();
         cpu = new CPU(assembler);
+
+        memory = new SecondaryMemory();
+        tree = new FileSystem(new File("src/main/resources/programs/"));
     }
 
     public static boolean login(String username, String password) throws IOException {
@@ -50,5 +54,13 @@ public class Bootloader {
 
     public static Assembler getAssembler() {
         return assembler;
+    }
+
+    public static SecondaryMemory getMemory() {
+        return memory;
+    }
+
+    public static FileSystem getTree() {
+        return tree;
     }
 }

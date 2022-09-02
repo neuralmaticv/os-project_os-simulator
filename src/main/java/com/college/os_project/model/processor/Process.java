@@ -5,10 +5,10 @@ import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.memory.MemoryManager;
 import com.college.os_project.model.memory.MemoryPartition;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class Process {
     private Path filePath;
     private int instructionsSize;
 
-    public Process(String filePath, String name, int priority) throws IOException {
-        if (new File(filePath).exists()) {
-            this.filePath = Path.of(filePath);
+    public Process(String name, String fullFileName, int priority) throws IOException {
+        if (Bootloader.getMemory().contains(fullFileName)) {
+            this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
             this.name = name;
             this.PID = ProcessScheduler.allProcesses.size();
             this.state = ProcessState.READY;

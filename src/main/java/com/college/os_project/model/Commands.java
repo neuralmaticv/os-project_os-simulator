@@ -1,10 +1,10 @@
 package com.college.os_project.model;
 
+import com.college.os_project.model.filesystem.FileSystem;
+import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.processor.Process;
 import com.college.os_project.model.processor.ProcessScheduler;
-import com.college.os_project.model.memory.Memory;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -56,9 +56,7 @@ public class Commands {
                     break;
                 case "load":
                     if (inputArr[1].endsWith(".asm")) {
-                        File f = new File("src/main/resources/programs/" + inputArr[1]);
-                        String absolute = f.getAbsolutePath();
-                        loadProcess(absolute, inputArr[1].split(".asm")[0]);
+                        loadProcess(inputArr[1].split(".asm")[0], inputArr[1]);
                         break;
                     }
                 case "stop":
@@ -79,29 +77,29 @@ public class Commands {
     }
 
     private static void listFilesAndDirs() {
-        // TODO:
+        FileSystem.listFiles();
     }
 
     private static void changeWorkingDir(String arg) {
-        // TODO:
+        FileSystem.changeDirectory(arg);
     }
 
     private static void makeDir(String arg) {
-        // TODO:
+        FileSystem.makeDirectory(arg);
     }
 
     private static void removeDir(String arg) {
-        // TODO:
+        FileSystem.deleteDirectory(arg);
     }
 
     private static void renameDir(String newName, String oldName) {
-        // TODO:
+        FileSystem.renameDirectory(oldName, newName);
     }
 
-    private static void loadProcess(String filePath, String processName) {
+    private static void loadProcess( String processName, String fullFileName) {
         try {
             Random random = new Random();
-            new Process(filePath, processName, random.nextInt(6) + 1);
+            new Process(processName, fullFileName, random.nextInt(6) + 1);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
