@@ -16,15 +16,13 @@ import java.util.List;
 
 public class Process {
     private int PID;
-    private String username;
     private String name;
     private ProcessState state;
     private int priority;
     private int size;
     private long startTime;
-    private MemoryPartition partition;
     private long totalTimeMS = 0;
-    private ArrayList<String> instructions = new ArrayList<>();
+    private final ArrayList<String> instructions = new ArrayList<>();
     private int[] valuesOfRegisters;
     private int PC = -1;
     private Path filePath;
@@ -51,27 +49,6 @@ public class Process {
         }
     }
 
-    public Process(String username, int priority, int size) {
-        this.PID = ProcessScheduler.allProcesses.size();
-        this.username = username;
-        this.state = ProcessState.READY;
-        this.priority = priority;
-        this.size = size;
-        this.totalTimeMS = this.size;
-
-        ProcessScheduler.allProcesses.add(this);
-    }
-
-    public Process(String username, int priority, ProcessState ps, int size) {
-        this.PID = ProcessScheduler.allProcesses.size();
-        this.username = username;
-        this.state = ps;
-        this.priority = priority;
-        this.size = size;
-
-        ProcessScheduler.allProcesses.add(this);
-    }
-
     private void readFile() throws IOException {
         List<String> content = Files.readAllLines(filePath);
 
@@ -86,9 +63,7 @@ public class Process {
             this.state = ProcessState.BLOCKED;
             System.out.printf("Process with PID = %d is blocked.\n", PID);
 
-            if (ProcessScheduler.readyQueue.contains(this)) {
-                ProcessScheduler.readyQueue.remove(this);
-            }
+            ProcessScheduler.readyQueue.remove(this);
         } else {
             System.out.printf("Process with PID = %d is not in running state.\n", PID);
         }
@@ -110,9 +85,7 @@ public class Process {
             MemoryManager.removeProcess(this);
             System.out.printf("Process with PID = %d is terminated.\n", this.getPID());
 
-            if (ProcessScheduler.readyQueue.contains(this)) {
-                ProcessScheduler.readyQueue.remove(this);
-            }
+            ProcessScheduler.readyQueue.remove(this);
         } else if (this.isBlocked()) {
             this.state = ProcessState.TERMINATED;
             MemoryManager.removeProcess(this);
@@ -122,10 +95,6 @@ public class Process {
 
     public int getPID() {
         return this.PID;
-    }
-
-    public ProcessState getProcessState() {
-        return this.state;
     }
 
     public void setState(ProcessState state) {
@@ -189,22 +158,13 @@ public class Process {
     }
 
     public void setValuesOfRegisters(int[] registersValues) {
-        for (int i = 0; i < registersValues.length; i++) {
-            this.valuesOfRegisters[i] = registersValues[i];
-        }
+        System.arraycopy(registersValues, 0, this.valuesOfRegisters, 0, registersValues.length);
     }
 
-    public boolean loadProcess(MemoryPartition partition) {
-        this.partition = Memory.occupyPartition(partition, this);
-        if (partition == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+    public boolean loadProcess(MemoryPartition memoryPartition) {
+        MemoryPartition partition = Memory.occupyPartition(memoryPartition, this);
 
-    public long getTotalTimeMS() {
-        return totalTimeMS;
+        return partition != null;
     }
 
     public void setEndTime(long currentTimeMillis) {

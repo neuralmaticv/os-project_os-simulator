@@ -4,7 +4,7 @@ import com.college.os_project.model.processor.Process;
 
 public class MemoryPartition {
     private Process process;
-    private int size;
+    private final int size;
     private int occupied;
 
     public MemoryPartition(int size) {

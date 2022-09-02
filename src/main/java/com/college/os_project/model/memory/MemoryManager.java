@@ -48,14 +48,12 @@ public class MemoryManager {
         return false;
     }
 
-    public static boolean removeProcess(Process process) {
+    public static void removeProcess(Process process) {
         for (MemoryPartition mp: Memory.getPartitions()) {
             if (mp.getProcess() != null && mp.getProcess().equals(process)) {
                 mp.freeMemory();
-                return true;
+                return;
             }
         }
-
-        return false;
     }
 }

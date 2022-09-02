@@ -16,26 +16,14 @@ public class Commands {
 
         if (inputArr.length == 1) {
             switch (inputArr[0]) {
-                case "ls":
-                    listFilesAndDirs();
-                    break;
-                case "ps":
-                    listAllProcesses();
-                    break;
-                case "mem":
-                    showMemory();
-                    break;
-                case "clear":
-                    clearTerminal();
-                    break;
-                case "exit":
-                    exit();
-                    break;
-                case "help":
-                    help();
-                    break;
-                default:
-                    System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.");
+                case "ls" -> listFilesAndDirs();
+                case "ps" -> listAllProcesses();
+                case "mem" -> showMemory();
+                case "clear" -> clearTerminal();
+                case "exit" -> exit();
+                case "help" -> help();
+                default ->
+                        System.out.println("Command '" + inputArr[0] + "' not found, type 'help' to list available commands.");
             }
         } else if (inputArr.length == 2) {
             switch (inputArr[0]) {
@@ -47,9 +35,6 @@ public class Commands {
                     break;
                 case "rm":
                     removeDir(inputArr[1]);
-                    break;
-                case "rename":
-                    renameDir(inputArr[1], inputArr[2]);
                     break;
                 case "run":
                     runProcess(Integer.valueOf(inputArr[1]));
@@ -70,6 +55,12 @@ public class Commands {
                     break;
                 default:
                     System.out.println("Command '" + inputArr[0] + " " + inputArr[1] + "' not found, type 'help' to list available commands.");
+            }
+        } else if (inputArr.length == 3) {
+            if (inputArr[0].equals("rename")) {
+                renameDir(inputArr[1], inputArr[2]);
+            } else {
+                System.out.println("Invalid parameters or command.");
             }
         } else {
             System.out.println("Command '" + input + "' not found, type 'help' to list available commands.");
@@ -93,10 +84,10 @@ public class Commands {
     }
 
     private static void renameDir(String newName, String oldName) {
-        FileSystem.renameDirectory(oldName, newName);
+        FileSystem.renameDirectory(newName, oldName);
     }
 
-    private static void loadProcess( String processName, String fullFileName) {
+    private static void loadProcess(String processName, String fullFileName) {
         try {
             Random random = new Random();
             new Process(processName, fullFileName, random.nextInt(6) + 1);
@@ -152,7 +143,7 @@ public class Commands {
         System.out.printf("%-40s %s\n", "rm <dir/file name>", "Remove a directory or file.");
         System.out.printf("%-40s %s\n", "rename <new name> <old name>", "Rename a directory or file.");
         System.out.printf("%-40s %s\n", "load <program name>", "Load a process.");
-        System.out.printf("%-40s %s\n", "run <program name> -o <output file>", "Run process and store result to output file.");
+        System.out.printf("%-40s %s\n", "run <program name> -o <output file>", "Run process and store result to output file. [NOT IMPLEMENTED]");
         System.out.printf("%-40s %s\n", "run <process id>", "Run process with specific PID.");
         System.out.printf("%-40s %s\n", "stop <process id>", "Stop process with specific PID.");
         System.out.printf("%-40s %s\n", "block <process id>", "Block process with specific PID.");

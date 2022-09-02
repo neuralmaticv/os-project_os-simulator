@@ -15,9 +15,8 @@ public class CPU  {
 
     // special purpose registers - instruction register, program counter, status register - zero flag
     private static Register IR, PC, ZF;
-    private static int timeQuantum = 1;
-    private static ArrayList<Register> generalRegisters = new ArrayList<>();
-    private Assembler assembler;
+    private static final ArrayList<Register> generalRegisters = new ArrayList<>();
+    private final Assembler assembler;
 
     public CPU(Assembler assembler) {
         activeProcess = null;
@@ -36,6 +35,7 @@ public class CPU  {
     public void execute(Process process, long startTime) {
         activeProcess.setStartTime(startTime);
 
+        int timeQuantum = 1;
         while (process.isRunning() && System.currentTimeMillis() - startTime < timeQuantum) {
             IR.setStrValue(process.getInstruction(PC.getValue()));
             executeMachineCode();
@@ -166,10 +166,6 @@ public class CPU  {
 
     public static void changeActiveProcessState(ProcessState state) {
         activeProcess.setState(state);
-    }
-
-    public static Register getPC() {
-        return PC;
     }
 
     public static void setPCvalue(int value) {

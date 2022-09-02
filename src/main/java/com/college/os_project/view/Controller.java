@@ -24,7 +24,6 @@ public class Controller implements Initializable {
     private final PipedInputStream input = new PipedInputStream();
     private final PipedOutputStream output = new PipedOutputStream();
     private StringBuilder outputStringBuilder = new StringBuilder();
-    private OutputStream outputStream;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,7 +32,8 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        outputStream = new OutputStream() {
+
+        OutputStream outputStream = new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 outputStringBuilder.append((char) b);

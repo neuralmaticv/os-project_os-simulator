@@ -94,9 +94,9 @@ public class FileSystem {
         }
     }
 
-    public static void renameDirectory(String old, String newName) {
+    public static void renameDirectory(String newName, String oldName) {
         for (TreeItem<File> file : Bootloader.getTree().getTreeItem().getChildren()) {
-            if (file.getValue().getName().equals(old) && file.getValue().isDirectory())
+            if (file.getValue().getName().equals(oldName) && file.getValue().isDirectory())
                 file.getValue().renameTo(new File(currentFolder.getAbsolutePath() + "/" + newName));
         }
     }
