@@ -14,7 +14,7 @@
 ## Opis projekta
 **Tema projekta:** Simulator operativnog sistema
 
-**Projekat radili:** Vladimir Mijić
+**Projekat radili:** Vladimir Mijić i Sergej Krupljanin
 
 ### Zadatak
 Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-project_os-simulator/blob/main/documentation/project_specification_sr.pdf).
@@ -23,14 +23,15 @@ Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-
 - [x] Procedura za podizanje operativnog sistema - booting
 - [x] Realizacija raspoređivača procesa - realizovati algoritam najvećeg prioriteta
 - [x] Realizacija tehnika upravljanja memorijom - dinamičko particionisanje sa odabirom najbolje odgovarajuće memorijske particije
-- [ ] Realizacija fajl sistema - drvoliko 
-- [ ] Realizacija interakcije sa ulazno/izlaznim uređajima (ulaz je tastatura i izlaz je monitor). **[Opcioni dio]**
-- [ ] Realizovati kreiranje, čitanje i brisanje datoteka - indeksirana alokacija memorije
+- [X] Realizacija fajl sistema - drvoliko - `Sergej`
+- [ ] Realizacija interakcije sa ulazno/izlaznim uređajima (ulaz je tastatura i izlaz je monitor). **[Opcioni dio]** - `Sergej`
+- [X] Realizovati kreiranje, čitanje i brisanje datoteka - indeksirana alokacija memorije - `Sergej`
 - [x] Osmisliti komande operativnog sistema koje treba da sadrže najosnovnije stvari koje će omogućiti pokretanje većeg broja procesa. Osnovne komande su:
-  1. Komanda za listanje datoteka i poddirektorijuma u aktuelnom direktorijumu
-  2. Komanda za promjenu aktuelnog direktorijuma
-  3. Komanda za kreiranje, brisanje i preimenovanje direktorijuma
-  4. Komanda za pokretanje izvršne datoteke i slanje u pozadinu kako bi mogao da se pokrene novi proces - podrazumijeva se momentalno slanje u pozadinu. Ulazni parametri se uvijek prosljeđuju preko tekstualne datoteke, te se rezultat izvršavanja takođe ispisuje u neku izlaznu tekstualnu datoteku. Poziv može da izgleda ovako: 
+  1. Komanda za listanje datoteka i poddirektorijuma u aktuelnom direktorijumu - `Sergej`
+  2. Komanda za promjenu aktuelnog direktorijuma - `Sergej`
+  3. Komanda za kreiranje, brisanje i preimenovanje direktorijuma - `Sergej`
+  4. Komanda za pokretanje izvršne datoteke i slanje u pozadinu kako bi mogao da se pokrene novi proces - podrazumijeva se momentalno slanje u pozadinu. Ulazni parametri se uvijek prosljeđuju preko tekstualne datoteke, te se rezultat izvršavanja takođe ispisuje u neku izlaznu tekstualnu datoteku. - `Sergej`  
+  Poziv može da izgleda ovako:
   ```bash
   <naziv komande> <naziv izvršne datoteke> <naziv datoteke sa rezultatima>
   ```
@@ -48,7 +49,10 @@ Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-
 ---
 
 ## Screenshots
-
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="1604" alt="main-screen-prof" src=""> | <img width="1604" alt="prof-option-to-add-new-grade" src=""> | <img width="1604" alt="prof-option-to-add-new-prof" src="">|
+|<img width="1604" alt="stud-option-to-list-grades" src=""> | <img width="1604" alt="stud-option-to-list-absences" src=""> | <img width="1604" alt="stud-option-to-rate-prof" src="">|
 ---
 
 ## Licenca
