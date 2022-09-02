@@ -146,12 +146,13 @@ public class Commands {
     }
 
     private static void help() {
-        System.out.printf("%-40s %s\n", "ls", "List files and directories. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "cd <dir name>", "Change working directory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "rm <dir name>", "Remove a directory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "rename <new name> <dir name>", "Rename a directory. [NOT IMPLEMENTED]");
-        System.out.printf("%-40s %s\n", "run <program name> -o <output file>", "[NOT IMPLEMENTED]");
+        System.out.printf("%-40s %s\n", "ls", "List files and directories.");
+        System.out.printf("%-40s %s\n", "cd <dir name>", "Change working directory.");
+        System.out.printf("%-40s %s\n", "mkdir <dir name>", "Make a directory.");
+        System.out.printf("%-40s %s\n", "rm <dir/file name>", "Remove a directory or file.");
+        System.out.printf("%-40s %s\n", "rename <new name> <old name>", "Rename a directory or file.");
+        System.out.printf("%-40s %s\n", "load <program name>", "Load a process.");
+        System.out.printf("%-40s %s\n", "run <program name> -o <output file>", "Run process and store result to output file.");
         System.out.printf("%-40s %s\n", "run <process id>", "Run process with specific PID.");
         System.out.printf("%-40s %s\n", "stop <process id>", "Stop process with specific PID.");
         System.out.printf("%-40s %s\n", "block <process id>", "Block process with specific PID.");
