@@ -34,39 +34,41 @@ public class CPU  {
     }
 
     public void execute(Process process, long startTime) {
-        activeProcess.setStartTime(startTime);
+        if (process != null) {
+            activeProcess.setStartTime(startTime);
 
-        int timeQuantum = 1;
-        while (process.isRunning() && System.currentTimeMillis() - startTime < timeQuantum) {
-            IR.setStrValue(process.getInstruction(PC.getValue()));
-            executeMachineCode();
-        }
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            System.out.println("Error with thread.");
-        }
-
-        if (process.isDone()) {
-            process.setProcessOutput(A.getValue());
-            if (process.getOutputFileName() != null) {
-                FileSystem.createFile(process);
+            int timeQuantum = 1;
+            while (process.isRunning() && System.currentTimeMillis() - startTime < timeQuantum) {
+                IR.setStrValue(process.getInstruction(PC.getValue()));
+                executeMachineCode();
             }
 
-            System.out.println("Process done");
-            process.setEndTime(System.currentTimeMillis());
-            MemoryManager.removeProcess(process);
-            Memory.info();
-        } else if (process.isBlocked()) {
-            System.out.printf("Process with PID = %d is blocked, you need to unblock it first.\n", activeProcess.getPID());
-        } else if (process.isTerminated()) {
-            System.out.printf("Process with PID = %d is terminated.\n", activeProcess.getPID());
-        } else {
-            saveRegistersValues();
-        }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                System.out.println("Error with thread.");
+            }
 
-        clearRegisters();
+            if (process.isDone()) {
+                process.setProcessOutput(A.getValue());
+                if (process.getOutputFileName() != null) {
+                    FileSystem.createFile(process);
+                }
+
+                System.out.println("Process done");
+                process.setEndTime(System.currentTimeMillis());
+                MemoryManager.removeProcess(process);
+                Memory.info();
+            } else if (process.isBlocked()) {
+                System.out.printf("Process with PID = %d is blocked, you need to unblock it first.\n", activeProcess.getPID());
+            } else if (process.isTerminated()) {
+                System.out.printf("Process with PID = %d is terminated.\n", activeProcess.getPID());
+            } else {
+                saveRegistersValues();
+            }
+
+            clearRegisters();
+        }
     }
 
     public void executeMachineCode() {

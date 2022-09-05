@@ -1,6 +1,5 @@
 package com.college.os_project.model;
 
-import com.college.os_project.model.filesystem.FileInMemory;
 import com.college.os_project.model.filesystem.FileSystem;
 import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.memory.SecondaryMemory;
@@ -44,6 +43,7 @@ public class Commands {
                     try {
                         int processID = Integer.parseInt(inputArr[1]);
                         runProcess(processID);
+                        break;
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid parameter, please provide process ID.");
                         break;
