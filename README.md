@@ -14,7 +14,7 @@
 ## Opis projekta
 **Tema projekta:** Simulator operativnog sistema
 
-**Projekat radili:** Vladimir Mijić i Sergej Krupljanin
+**Projekat radili:** [Vladimir Mijić](https://github.com/vladocodes) i [Sergej Krupljanin](https://github.com/sergejsergej)
 
 ### Zadatak
 Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-project_os-simulator/blob/main/documentation/project_specification_sr.pdf).
@@ -51,8 +51,8 @@ Specifikaciju možete pronaći na ovom [linku](https://github.com/vladocodes/os-
 ## Screenshots
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|<img width="1604" alt="main-screen-prof" src=""> | <img width="1604" alt="prof-option-to-add-new-grade" src=""> | <img width="1604" alt="prof-option-to-add-new-prof" src="">|
-|<img width="1604" alt="stud-option-to-list-grades" src=""> | <img width="1604" alt="stud-option-to-list-absences" src=""> | <img width="1604" alt="stud-option-to-rate-prof" src="">|
+|<img width="1604" alt="main-screen-prof" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-04-20.png"> | <img width="1604" alt="prof-option-to-add-new-grade" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-04-37.png"> | <img width="1604" alt="prof-option-to-add-new-prof" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-05-12.png">|
+|<img width="1604" alt="stud-option-to-list-grades" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-05-46.png"> | <img width="1604" alt="stud-option-to-list-absences" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-06-16.png"> | <img width="1604" alt="stud-option-to-rate-prof" src="https://github.com/vladocodes/os-project_os-simulator/blob/master/documentation/images/Screenshot%20from%202022-09-03%2001-06-52.png">|
 ---
 
 ## Licenca
