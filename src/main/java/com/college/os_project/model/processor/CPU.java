@@ -1,6 +1,7 @@
 package com.college.os_project.model.processor;
 
 import com.college.os_project.model.assembler.Assembler;
+import com.college.os_project.model.filesystem.FileSystem;
 import com.college.os_project.model.memory.Memory;
 import com.college.os_project.model.memory.MemoryManager;
 
@@ -48,6 +49,11 @@ public class CPU  {
         }
 
         if (process.isDone()) {
+            process.setProcessOutput(A.getValue());
+            if (process.getOutputFileName() != null) {
+                FileSystem.createFile(process);
+            }
+
             System.out.println("Process done");
             process.setEndTime(System.currentTimeMillis());
             MemoryManager.removeProcess(process);

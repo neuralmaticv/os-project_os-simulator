@@ -25,12 +25,15 @@ public class Process {
     private final ArrayList<String> instructions = new ArrayList<>();
     private int[] valuesOfRegisters;
     private int PC = -1;
-    private Path filePath;
     private int instructionsSize;
+    private Path filePath;
+    private int processOutput;
+    private String outputFileName;
 
-    public Process(String name, String fullFileName, int priority) throws IOException {
+    public Process(String name, String fullFileName, String outputFileName, int priority) throws IOException {
         if (Bootloader.getMemory().contains(fullFileName)) {
             this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
+            this.outputFileName = outputFileName;
             this.name = name;
             this.PID = ProcessScheduler.allProcesses.size();
             this.state = ProcessState.READY;
@@ -169,6 +172,26 @@ public class Process {
 
     public void setEndTime(long currentTimeMillis) {
         this.totalTimeMS = currentTimeMillis - startTime;
+    }
+
+    public int getProcessOutput() {
+        return processOutput;
+    }
+
+    public void setProcessOutput(int processOutput) {
+        this.processOutput = processOutput;
+    }
+
+    public String getOutputFileName() {
+        return outputFileName;
+    }
+
+    public Path getFilePath() {
+        return filePath;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

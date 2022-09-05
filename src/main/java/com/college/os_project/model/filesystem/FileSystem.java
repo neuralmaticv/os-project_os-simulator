@@ -1,9 +1,11 @@
 package com.college.os_project.model.filesystem;
 
 import com.college.os_project.model.Bootloader;
+import com.college.os_project.model.processor.Process;
 import javafx.scene.control.TreeItem;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -41,6 +43,17 @@ public class FileSystem {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createFile(Process process) {
+        try {
+            File newFile = new File(process.getFilePath().getParent() + "/" + process.getOutputFileName() + ".txt");
+            FileWriter fw = new FileWriter(newFile);
+            fw.write("Rezultat izvrsavanja za " + process.getName() + " : " + process.getProcessOutput());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error while creating file");
         }
     }
 
@@ -98,6 +111,16 @@ public class FileSystem {
         for (TreeItem<File> file : Bootloader.getTree().getTreeItem().getChildren()) {
             if (file.getValue().getName().equals(oldName) && file.getValue().isDirectory())
                 file.getValue().renameTo(new File(currentFolder.getAbsolutePath() + "/" + newName));
+        }
+    }
+
+    public static void deleteFile(String name) {
+        for (TreeItem<File> file : Bootloader.getTree().getTreeItem().getChildren()) {
+            if (file.getValue().getName().equals(name) && !file.getValue().isDirectory())
+                file.getValue().delete();
+            if (Bootloader.getMemory().contains(name)) {
+                Bootloader.getMemory().deleteFile(Bootloader.getMemory().getFile(name));
+            }
         }
     }
 

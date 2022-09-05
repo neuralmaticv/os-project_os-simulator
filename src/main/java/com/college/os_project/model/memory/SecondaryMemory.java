@@ -141,10 +141,10 @@ public class SecondaryMemory {
     }
 
     public static void printMemoryAllocationTable() {
-        System.out.println("Name of file\tIndex block\tBlocks occupied by this file\tLength");
+        System.out.println("Name of file\tIndex block\tBlocks occupied by this file\t\t\t\t\tLength");
         for (FileInMemory file : files)
-            System.out.println(file.getName() + "\t\t" + file.getIndexBlock() + "\t\t" +
-                    printList(blocks[file.getIndexBlock()].getList()) + "\t\t" + file.getLength());
+            System.out.println(file.getName() + "\t\t" + file.getIndexBlock() + "\t" +
+                    printList(blocks[file.getIndexBlock()].getList()) + "\t\t\t\t\t" + file.getLength());
     }
 
 
