@@ -5,6 +5,7 @@ import com.college.os_project.model.filesystem.FileSystem;
 import com.college.os_project.model.memory.MemoryManager;
 import com.college.os_project.model.memory.SecondaryMemory;
 import com.college.os_project.model.processor.CPU;
+import com.college.os_project.model.processor.ProcessScheduler;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -15,11 +16,13 @@ public class Bootloader {
     private static Assembler assembler;
     private static FileSystem tree;
     private static SecondaryMemory memory;
+    private static ProcessScheduler scheduler;
 
     public static void boot() throws IOException {
         memoryManager = new MemoryManager(2048);
         assembler = new Assembler();
         cpu = new CPU(assembler);
+        scheduler = new ProcessScheduler();
 
         memory = new SecondaryMemory();
         tree = new FileSystem(new File("src/main/resources/programs/"));
@@ -46,6 +49,10 @@ public class Bootloader {
 
     public static CPU getCpu() {
         return cpu;
+    }
+
+    public static ProcessScheduler getScheduler() {
+        return scheduler;
     }
 
     public static MemoryManager getMemoryManager() {
