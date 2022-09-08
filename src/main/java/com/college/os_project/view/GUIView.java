@@ -11,13 +11,17 @@ import java.util.Objects;
 
 public class GUIView extends Application implements View {
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/college/os_project/main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1400, 800);
-        scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/com/college/os_project/style.css")).toExternalForm());
-        stage.setTitle("OS Simulator");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/college/os_project/main.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1400, 800);
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/com/college/os_project/style.css")).toExternalForm());
+            stage.setTitle("OS Simulator");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

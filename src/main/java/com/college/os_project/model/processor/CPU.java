@@ -8,7 +8,7 @@ import com.college.os_project.model.memory.MemoryManager;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CPU  {
+public class CPU {
     private static Process activeProcess;
 
     // General purpose registers
@@ -18,6 +18,7 @@ public class CPU  {
     private static Register IR, PC, ZF;
     private static final ArrayList<Register> generalRegisters = new ArrayList<>();
     private final Assembler assembler;
+    private boolean idle = true;
 
     public CPU(Assembler assembler) {
         activeProcess = null;
@@ -35,6 +36,7 @@ public class CPU  {
 
     public void execute(Process process, long startTime) {
         if (process != null) {
+            idle = false;
             activeProcess.setStartTime(startTime);
 
             int timeQuantum = 1;
@@ -59,10 +61,14 @@ public class CPU  {
                 process.setEndTime(System.currentTimeMillis());
                 MemoryManager.removeProcess(process);
                 Memory.info();
+                idle = true;
+                activeProcess = null;
             } else if (process.isBlocked()) {
                 System.out.printf("Process with PID = %d is blocked, you need to unblock it first.\n", activeProcess.getPID());
+                idle = true;
             } else if (process.isTerminated()) {
                 System.out.printf("Process with PID = %d is terminated.\n", activeProcess.getPID());
+                idle = true;
             } else {
                 saveRegistersValues();
             }
@@ -207,6 +213,10 @@ public class CPU  {
         }
 
         PC.setValue(activeProcess.getPC());
+    }
+
+    public boolean isIdle() {
+        return idle;
     }
 
     public void printRegisters() {

@@ -129,7 +129,7 @@ public class Commands {
 
         if (p != null) {
             if (!p.isDone()) {
-                new ProcessScheduler().start();
+                ProcessScheduler.setActiveProcess(p);
             } else {
                 System.out.printf("Process with PID = %d is already executed, load and run it again.\n", p.getPID());
             }

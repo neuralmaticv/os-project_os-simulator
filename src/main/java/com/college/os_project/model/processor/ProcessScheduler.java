@@ -11,7 +11,7 @@ public class ProcessScheduler extends Thread {
     private final static CPU cpu = Bootloader.getCpu();
     private final static MemoryManager memoryManager = Bootloader.getMemoryManager();
     private static Process activeProcess;
-    public static ArrayList<Process> allProcesses = new ArrayList<>();
+    private static final ArrayList<Process> allProcesses = new ArrayList<>();
 
     public ProcessScheduler() {
     }
@@ -27,13 +27,23 @@ public class ProcessScheduler extends Thread {
     });
 
     public void run() {
-        // dev
-        while (!readyQueue.isEmpty()) {
-            Process next = readyQueue.poll();
-            runProcess(next);
+        while (true) {
+            synchronized (this) {
+                Process next = readyQueue.peek();
 
-            if (!next.isBlocked() && !next.isTerminated() && !next.isSuspended() && !next.isDone()) {
-                readyQueue.add(next);
+                if (next != null) {
+                    readyQueue.remove(next);
+                    if (CPU.getActiveProcess() != null && CPU.getActiveProcess() != next && CPU.getActiveProcess().getProcessPriority() > next.getProcessPriority()) {
+                        CPU.getActiveProcess().blockProcess();
+                        runProcess(next);
+                    } else {
+                        runProcess(next);
+                    }
+
+                    if (!next.isBlocked() && !next.isTerminated() && !next.isSuspended() && !next.isDone()) {
+                        readyQueue.add(next);
+                    }
+                }
             }
         }
     }
@@ -63,6 +73,14 @@ public class ProcessScheduler extends Thread {
         }
 
         return null;
+    }
+
+    public static ArrayList<Process> getAllProcesses() {
+        return allProcesses;
+    }
+
+    public static PriorityQueue<Process> getReadyQueue() {
+        return readyQueue;
     }
 
     public static Process getNextProcess() {
@@ -100,6 +118,14 @@ public class ProcessScheduler extends Thread {
         System.out.printf("%-3s\t\t %-18s\t\t %-3s\t\t %-10s\t\t %-10s\t\t %-12s\t\t %-12s\n", "PID", "NAME", "PR", "STATE", "MEM", "START", "TIME+");
         for (Process p : allProcesses) {
             System.out.print(p);
+        }
+    }
+
+    public static void setActiveProcess(Process p) {
+        if (activeProcess == null) {
+            activeProcess = p;
+        } else {
+            readyQueue.add(p);
         }
     }
 }

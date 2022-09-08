@@ -23,6 +23,7 @@ public class Bootloader {
         assembler = new Assembler();
         cpu = new CPU(assembler);
         scheduler = new ProcessScheduler();
+        scheduler.start();
 
         memory = new SecondaryMemory();
         tree = new FileSystem(new File("src/main/resources/programs/"));

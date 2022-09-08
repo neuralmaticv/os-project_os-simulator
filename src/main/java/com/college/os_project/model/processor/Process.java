@@ -37,7 +37,7 @@ public class Process {
             this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
             this.priority = priority;
             this.state = ProcessState.READY;
-            this.PID = ProcessScheduler.allProcesses.size();
+            this.PID = ProcessScheduler.getAllProcesses().size();
             this.valuesOfRegisters = new int[4];
             readFile();
             this.instructionsSize = instructions.size();
@@ -47,8 +47,8 @@ public class Process {
             }
 
             this.size = Math.round(this.size / 8) + 16;
-            ProcessScheduler.allProcesses.add(this);
-            ProcessScheduler.readyQueue.add(this);
+            ProcessScheduler.getAllProcesses().add(this);
+            ProcessScheduler.getReadyQueue().add(this);
         } else {
             System.out.println("File does not exist.");
         }
