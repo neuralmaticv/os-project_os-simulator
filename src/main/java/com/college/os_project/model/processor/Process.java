@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Process {
     private int PID;
-    private String name;
+    private String name, fullFileName;
     private ProcessState state;
     private int priority;
     private int size;
@@ -32,6 +32,7 @@ public class Process {
 
     public Process(String name, String fullFileName, String outputFileName, int priority) throws IOException {
         if (Bootloader.getMemory().contains(fullFileName)) {
+            this.fullFileName = fullFileName;
             this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
             this.outputFileName = outputFileName;
             this.name = name;
@@ -52,8 +53,8 @@ public class Process {
         }
     }
 
-    private void readFile() throws IOException {
-        List<String> content = Files.readAllLines(filePath);
+    private void readFile() {
+        List<String> content = List.of(Bootloader.getMemory().readFile(Bootloader.getMemory().getFile(this.fullFileName)).split("\n"));
 
         for (String instruction : content) {
             String machineCode = Bootloader.getAssembler().transformToMachineCode(instruction);

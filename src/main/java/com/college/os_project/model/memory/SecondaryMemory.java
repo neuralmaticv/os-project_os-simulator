@@ -89,7 +89,7 @@ public class SecondaryMemory {
         Block in = blocks[index];
         for (int i = 0; i < in.getList().length; i++) {
             int index2 = in.getList()[i];
-            System.out.println(index2);
+            // System.out.println(index2);
             byte[] content = blocks[index2].getContent();
             for (byte singleByte : content)
                 read += (char) singleByte;
