@@ -6,9 +6,9 @@ public class Register {
     private int value;
     private String strValue;
 
-    public Register(String name, String addresss, int value) {
+    public Register(String name, String address, int value) {
         this.name = name;
-        this.address = addresss;
+        this.address = address;
         this.value = value;
     }
 

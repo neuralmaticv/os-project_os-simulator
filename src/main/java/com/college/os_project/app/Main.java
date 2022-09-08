@@ -9,7 +9,7 @@ public class Main {
     public static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();
-        System.out.println("Select view: command-line interface (CMD) or graphical user interface (GUI)");;
+        System.out.println("Select view: command-line interface (CMD) or graphical user interface (GUI)");
         sb.append("Enter:").append("\n");
         sb.append("\t0 for CMD View or\n");
         sb.append("\t1 for GUI View [suggested]\n");

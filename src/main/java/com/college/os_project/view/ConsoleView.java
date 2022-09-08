@@ -21,7 +21,7 @@ public class ConsoleView implements View {
             hostname = InetAddress.getLocalHost().getHostName();
             System.out.println("Successfully booted.");
         } catch (IOException e) {
-            System.out.println("Boot error occured.");
+            System.out.println("Boot error occurred.");
             return;
         }
 

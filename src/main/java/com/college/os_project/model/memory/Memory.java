@@ -7,29 +7,20 @@ import java.util.ArrayList;
 public class Memory {
     private static int MAX_CAPACITY;
     private static int occupied;
-    private static ArrayList<MemoryPartition> partitions = new ArrayList<>();
+    private static final ArrayList<MemoryPartition> partitions = new ArrayList<>();
 
     public static void init(int size) {
         MAX_CAPACITY = size;
         occupied = 0;
         partitions.add(new MemoryPartition(size));
     }
-
-    public static MemoryPartition occupyPartition(int address, Process process) {
-        return partitions.get(address).occupyMemory(process);
-    }
-
+    
     public static MemoryPartition occupyPartition(MemoryPartition partition, Process process) {
         if (!partitions.contains(partition)) {
             return null;
         } else {
             return partition.occupyMemory(process);
         }
-    }
-
-    public static boolean mergePartitions(MemoryPartition partition) {
-        int location = partitions.indexOf(partition);
-        return mergePartitions(location);
     }
 
     public static boolean mergePartitions(int address) {
@@ -120,18 +111,6 @@ public class Memory {
         }
 
         return suitablePartitions;
-    }
-
-    public static ArrayList<MemoryPartition> getOccupiedPartitions(int size) {
-        ArrayList<MemoryPartition> occupiedPartitions = new ArrayList<>();
-
-        for (MemoryPartition mp : partitions) {
-            if (mp.getProcess() != null) {
-                occupiedPartitions.add(mp);
-            }
-        }
-
-        return occupiedPartitions;
     }
 
     public static void info() {

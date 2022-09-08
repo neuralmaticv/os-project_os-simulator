@@ -47,13 +47,15 @@ public class FileSystem {
     }
 
     public static void createFile(Process process) {
-        try {
-            File newFile = new File(process.getFilePath().getParent() + "/" + process.getOutputFileName() + ".txt");
-            FileWriter fw = new FileWriter(newFile);
-            fw.write("Rezultat izvrsavanja za " + process.getName() + " : " + process.getProcessOutput());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error while creating file");
+        if (process.getOutputFileName() != null) {
+            try {
+                File newFile = new File(process.getFilePath().getParent() + "/" + process.getOutputFileName() + ".txt");
+                FileWriter fw = new FileWriter(newFile);
+                fw.write("Rezultat izvrsavanja za " + process.getName() + " : " + process.getProcessOutput());
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("Error while creating file");
+            }
         }
     }
 

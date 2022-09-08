@@ -6,7 +6,6 @@ import com.college.os_project.model.memory.MemoryManager;
 import com.college.os_project.model.memory.MemoryPartition;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -32,19 +31,21 @@ public class Process {
 
     public Process(String name, String fullFileName, String outputFileName, int priority) throws IOException {
         if (Bootloader.getMemory().contains(fullFileName)) {
-            this.fullFileName = fullFileName;
-            this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
-            this.outputFileName = outputFileName;
             this.name = name;
-            this.PID = ProcessScheduler.allProcesses.size();
-            this.state = ProcessState.READY;
+            this.fullFileName = fullFileName;
+            this.outputFileName = outputFileName;
+            this.filePath = Paths.get(Bootloader.getTree().getCurrentFolder().getAbsolutePath() + "/" + fullFileName);
             this.priority = priority;
+            this.state = ProcessState.READY;
+            this.PID = ProcessScheduler.allProcesses.size();
             this.valuesOfRegisters = new int[4];
             readFile();
             this.instructionsSize = instructions.size();
+
             for (int i = 0; i < instructionsSize; i++) {
                 this.size += instructions.get(i).length();
             }
+
             this.size = Math.round(this.size / 8) + 16;
             ProcessScheduler.allProcesses.add(this);
             ProcessScheduler.readyQueue.add(this);
@@ -77,6 +78,7 @@ public class Process {
         if (this.isBlocked()) {
             this.state = ProcessState.READY;
             System.out.printf("Process with PID = %d is unblocked.\n", PID);
+
             ProcessScheduler.readyQueue.add(this);
         } else {
             System.out.printf("Process with PID = %d is not blocked.\n", PID);
@@ -86,6 +88,7 @@ public class Process {
     public void terminateProcess() {
         if (this.isReady() || this.isRunning()) {
             this.state = ProcessState.TERMINATED;
+            this.outputFileName = null;
             MemoryManager.removeProcess(this);
             System.out.printf("Process with PID = %d is terminated.\n", this.getPID());
 

@@ -4,9 +4,7 @@ import com.college.os_project.model.Bootloader;
 import com.college.os_project.model.memory.MemoryManager;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 
 public class ProcessScheduler extends Thread {
@@ -15,7 +13,8 @@ public class ProcessScheduler extends Thread {
     private static Process activeProcess;
     public static ArrayList<Process> allProcesses = new ArrayList<>();
 
-    public ProcessScheduler() {}
+    public ProcessScheduler() {
+    }
 
     public static PriorityQueue<Process> readyQueue = new PriorityQueue<>((o1, o2) -> {
         if (o1.getProcessPriority() < o2.getProcessPriority()) {
@@ -26,7 +25,6 @@ public class ProcessScheduler extends Thread {
             return 0;
         }
     });
-    public static Queue<Process> blockedQueue = new LinkedList<>();
 
     public void run() {
         while (!readyQueue.isEmpty()) {
@@ -34,11 +32,9 @@ public class ProcessScheduler extends Thread {
             runProcess(next);
 
             if (!next.isBlocked() && !next.isTerminated() && !next.isSuspended() && !next.isDone()) {
-               readyQueue.add(next);
+                readyQueue.add(next);
             }
         }
-
-        System.out.println("There are no processes to be executed!");
     }
 
     private static void runProcess(Process process) {

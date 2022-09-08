@@ -29,9 +29,9 @@ public class MemoryManager {
             return true;
         }
 
-
         ArrayList<MemoryPartition> suitablePartitions = Memory.getSuitablePartitions(processSize);
         int spSize = suitablePartitions.size();
+
         for (int i = 0; i < spSize; i++) {
             if (suitablePartitions.get(i).getSize() - processSize < minDiff) {
                 address = i;

@@ -128,7 +128,11 @@ public class Commands {
         Process p = ProcessScheduler.getProcess(PID);
 
         if (p != null) {
-            new ProcessScheduler().start();
+            if (!p.isDone()) {
+                new ProcessScheduler().start();
+            } else {
+                System.out.printf("Process with PID = %d is already executed, load and run it again.\n", p.getPID());
+            }
         } else {
             System.out.printf("Process with PID = %d does not exist.\n", PID);
         }
@@ -153,6 +157,7 @@ public class Commands {
     private static void showMainMemory() {
         Memory.info();
     }
+
     private static void showSecondaryMemory() {
         SecondaryMemory.printMemoryAllocationTable();
     }

@@ -74,11 +74,13 @@ public class Controller implements Initializable {
 
     private void displayInfo() {
         StringBuilder sb = new StringBuilder();
+
         sb.append("-------------------------------------------------------------------").append("\n");
         sb.append("Operating System Simulator").append("[Version 0.0.1]").append("\n");
         sb.append("Authors: ").append("Vladimir Mijic and Sergej Krupljanin").append("\n");
         sb.append("On computer: ").append(hostname).append("\n");
         sb.append("-------------------------------------------------------------------");
+
         System.out.println(sb);
     }
 
